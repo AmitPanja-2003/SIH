@@ -5,6 +5,7 @@ import PatientHomePage from "./conponent/PatientHomePage";
 import OpdBooking from "./conponent/OpdBooking";
 import HospitalLogin from "./conponent/hospitalLogin";
 import Dashboard from "./conponent/Dashboard";
+import HospitalInventoryForm from "./conponent/HospitalInventoryForm";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/patients/home" element={<PatientHomePage/>} />
           <Route path="/patients/opdBooking" element={<OpdBooking/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/inventory" element={<HospitalInventoryForm/>} />
           app.use("/hospital", hospitalRoutes);
         </Routes>
       </Router>

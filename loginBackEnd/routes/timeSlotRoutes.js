@@ -45,8 +45,8 @@ router.post('/book', async (req, res) => {
         return appoinment;
   })
 
-  console.log("appoinment = ",appoinment);
-  console.log(department);
+  // console.log("appoinment = ",appoinment);
+  // console.log(department);
 if (!slot || !department || !hospital) {
     return res.status(400).json({ message: "Slot, department, and hospital are required." });
   }

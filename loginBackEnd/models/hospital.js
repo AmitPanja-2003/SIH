@@ -76,5 +76,7 @@ const hospitalSchema = new mongoose.Schema({
 });
 
 
+
+
 const Hospital = mongoose.model("Hospitals_informations", hospitalSchema);
 module.exports=Hospital;
