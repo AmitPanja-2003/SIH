@@ -130,7 +130,6 @@ h2{
 }
 
 
-/* Responsive design for forms */
 @media (max-width: 768px) {
   .patient-form {
     width: 90%;
@@ -143,8 +142,6 @@ h2{
     margin-left: 0;
   }
 }
-
-
 
 
 select#bed-type,
@@ -165,7 +162,6 @@ input[type="text"]:focus {
   border-color: #4CAF50;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -192,18 +188,10 @@ input[type="text"]:focus {
   }
 }
 
-
-
-
-
 .para{
   color:red;
   font-size:15px
 }
-
-
-
-
 
 
 /* Table Section */

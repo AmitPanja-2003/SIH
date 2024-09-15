@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import moment from 'moment-timezone';
 import dotenv from 'dotenv';
 
-// Load environment variables from .env file
 dotenv.config();
 
 const app = express();
@@ -39,7 +38,7 @@ const patientSchema = new mongoose.Schema({
   bloodGroup: { type: String, required: true },
   phoneNo: { type: Number, required: true },
   address: { type: String, required: true },
-  bedType: { type: String, required: true } // Added field for bed type
+  bedType: { type: String, required: true } 
 });
 
 const Patient = mongoose.model('Patient', patientSchema);
@@ -58,12 +57,11 @@ const checkedOutPatientSchema = new mongoose.Schema({
     type: Date,
     default: () => moment().tz('Asia/Kolkata').toDate()
   },
-  bedType: { type: String, required: true } // Added field for bed type
+  bedType: { type: String, required: true } 
 });
 
 const CheckedOutPatient = mongoose.model('CheckedOutPatient', checkedOutPatientSchema);
 
-// Initialize bed data with 500 beds split equally across bed types
 const initializeBedData = async () => {
   const bedTypes = [
     'Emergency Bed',
@@ -78,7 +76,7 @@ const initializeBedData = async () => {
   const bedsPerType = Math.floor(500 / bedTypes.length);
 
   try {
-    await Bed.deleteMany({}); // Clear existing data
+    await Bed.deleteMany({});
 
     for (const bedType of bedTypes) {
       const bedData = new Bed({
@@ -93,7 +91,7 @@ const initializeBedData = async () => {
   }
 };
 
-// API to get all bed types and their availability
+
 app.get('/api/beds', async (req, res) => {
   try {
     const beds = await Bed.find({});
@@ -103,7 +101,6 @@ app.get('/api/beds', async (req, res) => {
   }
 });
 
-// API to update bed availability for a specific bed type
 app.put('/api/beds/update', async (req, res) => {
   const { bedType, bedsAvailable } = req.body;
 
@@ -128,7 +125,7 @@ app.put('/api/beds/update', async (req, res) => {
   }
 });
 
-// API endpoint to add a new patient
+
 app.post('/api/patients', async (req, res) => {
   const { date, patientId, name, age, gender, bloodGroup, phoneNo, address, bedType } = req.body;
 
@@ -154,7 +151,7 @@ app.post('/api/patients', async (req, res) => {
   }
 });
 
-// API endpoint to get all patients
+
 app.get('/api/patients', async (req, res) => {
   try {
     const patients = await Patient.find({});
@@ -164,7 +161,7 @@ app.get('/api/patients', async (req, res) => {
   }
 });
 
-// API endpoint to checkout a patient
+
 app.post('/api/patients/checkout/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -179,7 +176,7 @@ app.post('/api/patients/checkout/:id', async (req, res) => {
       return res.status(404).json({ error: 'Patient not found' });
     }
 
-    // Save the patient to the CheckedOutPatient collection
+    
     const checkedOutPatient = new CheckedOutPatient({
       date: patient.date,
       patientId: patient.patientId,
@@ -189,7 +186,7 @@ app.post('/api/patients/checkout/:id', async (req, res) => {
       bloodGroup: patient.bloodGroup,
       phoneNo: patient.phoneNo,
       address: patient.address,
-      bedType: patient.bedType // Save bed type as well
+      bedType: patient.bedType 
     });
     await checkedOutPatient.save();
 
@@ -207,7 +204,7 @@ app.post('/api/patients/checkout/:id', async (req, res) => {
   }
 });
 
-// API endpoint to get all checked-out patients
+
 app.get('/api/checkedoutpatients', async (req, res) => {
   try {
     const checkedOutPatients = await CheckedOutPatient.find({});
@@ -217,7 +214,7 @@ app.get('/api/checkedoutpatients', async (req, res) => {
   }
 });
 
-// Start the server and initialize bed data
+// Start  server 
 app.listen(5000, () => {
   console.log('Server started on http://localhost:5000');
   initializeBedData();

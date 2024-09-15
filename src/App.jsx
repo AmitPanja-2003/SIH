@@ -66,7 +66,7 @@ const App = () => {
 
     try {
       await axios.post("/api/patients", dataToSubmit);
-      // Update bed availability directly in state
+  
       setBedsAvailable((prevCount) => prevCount - 1);
       fetchPatientData();
       setShowForm(false);
@@ -91,7 +91,7 @@ const App = () => {
         bedType,
         bedsAvailable: newCount,
       });
-      // Update the state to reflect the new bed count
+   
       setBeds((prevBeds) =>
         prevBeds.map((bed) =>
           bed.bedType === bedType ? { ...bed, bedsAvailable: newCount } : bed
@@ -105,7 +105,7 @@ const App = () => {
   const handleCheckout = async (patientId, bedType) => {
     try {
       await axios.post(`/api/patients/checkout/${patientId}`);
-      // Update bed availability directly in state
+    
       setBedsAvailable((prevCount) => prevCount + 1);
       fetchPatientData();
       alert("Patient checked out successfully.");
