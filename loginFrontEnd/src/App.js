@@ -6,6 +6,7 @@ import OpdBooking from "./conponent/OpdBooking";
 import HospitalLogin from "./conponent/hospitalLogin";
 import Dashboard from "./conponent/Dashboard";
 import HospitalInventoryForm from "./conponent/HospitalInventoryForm";
+import PatientHistory from "./conponent/PatientHistory";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/patients/opdBooking" element={<OpdBooking/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/inventory" element={<HospitalInventoryForm/>} />
+          <Route path="/patientHistory" element={<PatientHistory/>} />
           app.use("/hospital", hospitalRoutes);
         </Routes>
       </Router>

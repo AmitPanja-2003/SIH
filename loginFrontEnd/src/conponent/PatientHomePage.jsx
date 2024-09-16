@@ -30,7 +30,7 @@ const PatientHomePage = () => {
           <h3>Book OPD</h3>
           <p>Schedule your next outpatient appointment.</p>
         </div>
-        <div className="card" onClick={() => alert('Patient History clicked!')}>
+        <div className="card" onClick={() => {navigate('/patientHistory',{state:patient_detail}) }}>
           <h3>Patient History</h3>
           <p>View your medical history and records.</p>
         </div>
