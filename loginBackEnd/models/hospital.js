@@ -32,7 +32,8 @@ const hospitalSchema = new mongoose.Schema({
             type: { type: String, required: true },
             name: { type: String, required: true },
             quantity: { type: Number, required: true },
-            inDate: { type: Date, required: true },
+            inDate: { type: String, required: true ,default: new Date(Date.now()).toLocaleDateString('en-GB')},
+            price: { type: Number, required: true },
             expiredDate: { type: Date, required: true },
         },
     ],
@@ -49,8 +50,9 @@ const hospitalSchema = new mongoose.Schema({
                 {
                     checkupNumber: { type: Number, required: true },
                     doctorName: { type: String, required: true },
+                    doctorID: { type: String, required: true },
                     condition: { type: String, required: true },
-                    medicines: [
+                    medicines:  [
                         {
                             name: { type: String, required: true },
                             quantity: { type: Number, required: true },

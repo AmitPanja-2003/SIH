@@ -5,18 +5,73 @@ import Swal from 'sweetalert2';
 import '../CSS/HospitalInventoryForm.css'; 
 
 const HospitalInventoryForm = () => {
+  // List of products
+  const ruralHospitalProducts = [
+    "Stethoscope",
+    "Blood Pressure Monitor",
+    "Thermometer",
+    "Syringes",
+    "Needles",
+    "IV Drip Sets",
+    "Gloves (Disposable)",
+    "Surgical Masks",
+    "Hand Sanitizer",
+    "Antiseptic Solutions",
+    "Bandages and Dressings",
+    "Sutures",
+    "Wheelchairs",
+    "Hospital Beds",
+    "Oxygen Cylinders",
+    "Defibrillator",
+    "First Aid Kits",
+    "Patient Monitors",
+    "Ultrasound Machine",
+    "X-ray Machine",
+    "Medical Waste Disposal Bags",
+    "Scalpel",
+    "Forceps",
+    "Surgical Scissors",
+    "Blood Glucose Monitor",
+    "Hemoglobin Test Kit",
+    "HIV Test Kit",
+    "Urine Dipsticks",
+    "ECG Machine",
+    "Ventilators",
+    "Microscope",
+    "Centrifuge",
+    "Autoclave Machine",
+    "Ambu Bag",
+    "Arm Splints",
+    "Cervical Collar",
+    "Inhalers",
+    "Nebulizers",
+    "Paracetamol 500mg",
+    "Ibuprofen 400mg",
+    "Amoxicillin 500mg",
+    "Ciprofloxacin 500mg",
+    "Metronidazole 500mg",
+    "Azithromycin 500mg",
+    "Doxycycline 100mg",
+    "Aspirin 81mg",
+    "Loratadine 10mg",
+    "Atorvastatin 10-20mg",
+    "Lisinopril 10-40mg",
+    "Metformin 500mg"
+  ];
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const initialHospitalName = queryParams.get('hospitalName');
   const initialHospitalID = queryParams.get('hospitalID');
 
   const [hospitalName, setHospitalName] = useState('');
-  const [hospitalID, setHospitalID] = useState(''); 
+  const [hospitalID, setHospitalID] = useState('');
   const [productType, setProductType] = useState('');
   const [productName, setProductName] = useState('');
   const [productQuantity, setProductQuantity] = useState('');
   const [price, setPrice] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
   const productTypes = [
     'Medicines (tablets, syrups, injections, ointments)',
@@ -48,25 +103,44 @@ const HospitalInventoryForm = () => {
     }
   }, [initialHospitalName, initialHospitalID]);
 
+  // Handle product name input change to filter suggestions
+  const handleProductNameChange = (e) => {
+    const value = e.target.value;
+    setProductName(value);
+
+    if (value.length > 0) {
+      const filteredSuggestions = ruralHospitalProducts.filter(product =>
+        product.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setProductName(suggestion); // Set the input to the clicked suggestion
+    setSuggestions([]); // Clear suggestions after selection
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const inventoryData = {
-      hospitalName,
-      hospitalID: Number(hospitalID),
-      products: [
-        {
-          productType,
-          productName,
-          productQuantity: Number(productQuantity),
-          price: Number(price),
-          expiryDate,
-        },
-      ],
-    };
+    
+    let inDate = new Date(Date.now()).toLocaleDateString('en-GB')
+    let inventoryData={
+      type: productType,
+      name: productName,
+      quantity: productQuantity,
+      inDate:  new Date(Date.now()).toLocaleDateString('en-GB'),
+      price: price,
+      expiredDate: expiryDate,
+    }
+      
+    
 
     try {
-      await axios.post('http://localhost:5000/hospital/addinventory', inventoryData);
+      console.log(inventoryData)
+      await axios.post('http://localhost:5000/hospital/addinventory', {inventoryData:inventoryData,hospitalID:hospitalID});
       Swal.fire({
         title: 'Success!',
         text: 'Data has been saved to the database.',
@@ -76,7 +150,6 @@ const HospitalInventoryForm = () => {
 
       setHospitalName('');
       setHospitalID('');
-       
       setProductType('');
       setProductName('');
       setProductQuantity('');
@@ -121,8 +194,6 @@ const HospitalInventoryForm = () => {
           />
         </div>
 
-        
-
         <div className="form-group">
           <label>Product Type:</label>
           <select 
@@ -138,15 +209,30 @@ const HospitalInventoryForm = () => {
         </div>
 
         <div className="form-group">
-          <label>Product Name:</label>
-          <input
-            type="text"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            required
-            placeholder="Enter product name"
-          />
-        </div>
+  <label>Product Name:</label>
+  <input
+    type="text"
+    value={productName}
+    onChange={handleProductNameChange}
+    required
+    placeholder="Enter product name"
+  />
+  {/* Suggestions Dropdown */}
+  {suggestions.length > 0 && (
+    <ul className="suggestions-list">
+      {suggestions.map((suggestion, index) => (
+        <li
+          key={index}
+          onClick={() => handleSuggestionClick(suggestion)}
+          className="suggestion-item"
+        >
+          {suggestion}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
 
         <div className="form-group">
           <label>Product Quantity:</label>
@@ -182,6 +268,7 @@ const HospitalInventoryForm = () => {
 
         <button type="submit" className="submit-button">Submit</button>
       </form>
+      <h1> hii </h1>
     </div>
   );
 };

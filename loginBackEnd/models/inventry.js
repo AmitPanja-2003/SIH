@@ -6,11 +6,13 @@ const inventorySchema = new mongoose.Schema({
     phoneNumber: { type: String, required: true },
     products: [
         {
-            productType: { type: String, required: true },
-            productName: { type: String, required: true },
-            productQuantity: { type: Number, required: true },
+            
+            type: { type: String, required: true },
+            name: { type: String, required: true },
+            quantity: { type: Number, required: true },
+            inDate: { type: String,default: new Date(Date.now()).toLocaleDateString('en-GB')},
             price: { type: Number, required: true },
-            expiryDate: { type: Date, required: true },
+            expiredDate: { type: Date, required: true },
         },
     ],
 });
