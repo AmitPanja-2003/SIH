@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Hospital = require("../models/hospital"); // Import the Hospital model
+const Hospital=require('../models/hospital.js')
 
 // POST route for hospital login
 router.post("/hospitalLogin", async (req, res) => {

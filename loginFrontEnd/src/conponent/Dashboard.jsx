@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../CSS/Dashboard.css';
+import styles from '../CSS/Dashboard.module.css'; // Updated import to CSS module
+import Navbar from './Navbar';
 
 const Dashboard = () => {
     const location = useLocation();
@@ -14,32 +15,32 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="dashboard-container">
-            <h1>Welcome to {hospitalName} (ID: {hospitalID})</h1>
-            <div className="cards-container">
-                <div className="card" onClick={() => handleNavigation('/add-patient')}>
+        <div className={styles.dashboardContainer}>
+            <Navbar hospitalID={hospitalID} hospitalName={hospitalName} />
+            <div className={styles.cardsContainer}>
+                <div className={styles.card} onClick={() => handleNavigation('/add-patient')}>
                     Add Patient
                 </div>
-                <div className="card" onClick={() => handleNavigation('/track-medicine')}>
+                <div className={styles.card} onClick={() => handleNavigation('/track-medicine')}>
                     Track Medicine
                 </div>
-                <div className="card" onClick={() => handleNavigation(`/inventory?hospitalName=${hospitalName}&hospitalID=${hospitalID}`)}>
+                <div className={styles.card} onClick={() => handleNavigation(`/inventory?hospitalName=${hospitalName}&hospitalID=${hospitalID}`)}>
                     Add Inventory
                 </div>
-                <div className="card" onClick={() => handleNavigation('/opd-checkup')}>
-                    OPD checkup
+                <div className={styles.card} onClick={() => handleNavigation('/opd-checkup')}>
+                    OPD Checkup
                 </div>
-                <div className="card" onClick={() => handleNavigation('/add-doctor')}>
+                <div className={styles.card} onClick={() => handleNavigation(`/add-doctor?hospitalID=${hospitalID}`)}>
                     Add Doctor
                 </div>
-                <div className="card" onClick={() => handleNavigation('/doctors-round')}>
-                    Doctors Round {/* Changed from Patients */}
+                <div className={styles.card} onClick={() => handleNavigation('/doctors-round')}>
+                    Doctors Round
                 </div>
-                <div className="card" onClick={() => handleNavigation('/check-doctor-details')}>
+                <div className={styles.card} onClick={() => handleNavigation('/check-doctor-details')}>
                     Check Doctor Details
                 </div>
-                <div className="card" onClick={() => handleNavigation('/opd-medicine')}>
-                    OPD Medicine {/* New Div */}
+                <div className={styles.card} onClick={() => handleNavigation('/opd-medicine')}>
+                    OPD Medicine
                 </div>
             </div>
         </div>

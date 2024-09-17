@@ -1,4 +1,6 @@
-.login-container {
+/* hospitalLogin.module.css */
+
+.loginContainer {
     max-width: 400px;
     margin: 100px auto;
     padding: 20px;
@@ -12,17 +14,17 @@ h2 {
     color: #333;
 }
 
-.form-group {
+.formGroup {
     margin-bottom: 20px;
 }
 
-.form-group label {
+.formGroup label {
     display: block;
     font-size: 16px;
     margin-bottom: 8px;
 }
 
-.form-group input {
+.formGroup input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;

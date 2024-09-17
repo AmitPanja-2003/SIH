@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const patientRoutes = require('./routes/patientRoutes');
 const timeSlotRoutes = require('./routes/timeSlotRoutes');
 const hospitalRoutes = require("./routes/hospitalRoutes"); 
+const DoctorRoutes = require("./routes/DoctorAddRoutes")
+const Inventory = require("./routes/AddInventory");
 const cors = require('cors'); 
 const app = express();
 
@@ -20,7 +22,8 @@ mongoose.connect(url)
 app.use('/patients', patientRoutes);
 app.use('/patient_timeslot', timeSlotRoutes);
 app.use("/hospital", hospitalRoutes);
-
+app.use('/doctors',DoctorRoutes);
+app.use("/addInventory",Inventory);
 // Start the server
 // const PORT = process.env.PORT || 5000;
 app.listen(5000, () => console.log(`Server running on port 5000`));

@@ -1,0 +1,230 @@
+/* /* * {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    position: relative;
+    background-color: rgb(160, 246, 252);
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+}
+
+.hospital-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+.hospital-name {
+    font-size: 2rem;  
+    font-weight: 600;
+}
+
+.hospital-id {
+    font-size: 1.5rem;  
+    font-weight: 400;
+}
+
+.nav-links {
+    display: flex;
+    width: 40%;
+    justify-content: space-evenly;
+}
+
+.nav-link {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.1);
+    color: #49a3fe; 
+}
+
+.nav-menu-btn {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+}
+
+.nav-menu-cncl {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+}
+
+.nav-menu {
+    position: absolute;
+    width: 100%;
+    top: 60px;
+    display: none;
+    flex-direction: column;
+    gap: 0.8rem;
+    background-color: white;
+    padding: 1rem;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.nav-menu.active {
+    display: flex;
+    opacity: 1;
+}
+
+.nav-menu-item {
+    padding-left: 0.8rem;
+}
+
+
+@media (max-width: 640px) {
+    .nav-links {
+        display: none;
+    }
+
+    .nav-menu-btn {
+        display: block;
+    }
+
+    .nav-menu-cncl.active {
+        display: block;
+        position: absolute;
+        right: 1rem;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+}
+
+@media (min-width: 641px) {
+    .nav-menu-btn,
+    .nav-menu-cncl {
+        display: none;
+    }
+} */
+
+
+
+/* Reset margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    position: relative;
+    background-color: rgb(160, 246, 252);
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+}
+
+/* Hospital info styling */
+.hospitalInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+.hospitalName {
+    font-size: 2rem;  
+    font-weight: 600;
+}
+
+.hospitalId {
+    font-size: 1.5rem;  
+    font-weight: 400;
+}
+
+/* Navigation links styling */
+.navLinks {
+    display: flex;
+    width: 40%;
+    justify-content: space-evenly;
+}
+
+.navLink {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.navLink:hover {
+    transform: scale(1.1);
+    color: #49a3fe; 
+}
+
+/* Mobile menu button */
+.navMenuBtn {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Cancel button */
+.navMenuCncl {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Dropdown menu */
+.navMenu {
+    position: absolute;
+    width: 100%;
+    top: 60px;
+    display: none;
+    flex-direction: column;
+    gap: 0.8rem;
+    background-color: white;
+    padding: 1rem;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.navMenu.active {
+    display: flex;
+    opacity: 1;
+}
+
+.navMenuItem {
+    padding-left: 0.8rem;
+}
+
+/* Media queries */
+@media (max-width: 640px) {
+    .navLinks {
+        display: none;
+    }
+
+    .navMenuBtn {
+        display: block;
+    }
+
+    .navMenuCncl.active {
+        display: block;
+        position: absolute;
+        right: 1rem;
+    }
+
+    .navMenu.active {
+        display: flex;
+    }
+}
+
+@media (min-width: 641px) {
+    .navMenuBtn,
+    .navMenuCncl {
+        display: none;
+    }
+} 

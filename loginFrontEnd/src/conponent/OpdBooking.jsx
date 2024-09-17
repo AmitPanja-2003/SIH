@@ -1,6 +1,5 @@
 
 import React from "react";
-import Head from "./head";
 import TimeSlot from "./TimeSlot";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +11,7 @@ function OpdBooking() {
     return (
       <div className="App">
        <div className="head-section">
-          <Head/>
+       <h1>Patient OPD Booking</h1>
        </div>
        <div className="body-section">
        <TimeSlot patient_detail={patient_detail}/>

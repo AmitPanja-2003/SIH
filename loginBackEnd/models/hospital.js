@@ -32,8 +32,8 @@ const hospitalSchema = new mongoose.Schema({
             type: { type: String, required: true },
             name: { type: String, required: true },
             quantity: { type: Number, required: true },
-            inDate: { type: Date, required: true },
-            expiredDate: { type: Date, required: true },
+            inDate: { type: String, required: true ,default:new Date(Date.now()).toLocaleDateString()},
+            expiredDate: { type: String, required: true },
         },
     ],
     bedPatientDetails: [

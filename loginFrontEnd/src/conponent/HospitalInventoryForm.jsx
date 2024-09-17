@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import '../CSS/HospitalInventoryForm.css'; 
+import styles from '../CSS/HospitalInventoryForm.module.css';
 
 const HospitalInventoryForm = () => {
   const location = useLocation();
@@ -11,35 +11,26 @@ const HospitalInventoryForm = () => {
   const initialHospitalID = queryParams.get('hospitalID');
 
   const [hospitalName, setHospitalName] = useState('');
-  const [hospitalID, setHospitalID] = useState(''); 
+  const [hospitalID, setHospitalID] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [productType, setProductType] = useState('');
   const [productName, setProductName] = useState('');
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [productQuantity, setProductQuantity] = useState('');
   const [price, setPrice] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
 
-  const productTypes = [
-    'Medicines (tablets, syrups, injections, ointments)',
-    'Blood (blood types: A+, O-, etc.)',
-    'Injections (vaccines, insulin, pain relief injections)',
-    'IV Fluids (saline, dextrose, Ringer\'s lactate)',
-    'Syringes (various sizes: 1ml, 5ml, 10ml, etc.)',
-    'Needles (hypodermic needles, butterfly needles)',
-    'Bandages and Dressings (gauze, adhesive bandages, wound dressings)',
-    'Surgical Instruments (scalpels, forceps, scissors)',
-    'Gloves (sterile, non-sterile, nitrile, latex)',
-    'PPE (masks, face shields, gowns, caps)',
-    'Oxygen Cylinders (medical-grade oxygen)',
-    'Disinfectants (alcohol wipes, hand sanitizers, surface disinfectants)',
-    'Test Kits (COVID-19 test kits, glucose meters)',
-    'Specimen Containers (urine containers, blood collection tubes)',
-    'Vaccines (measles, hepatitis, tetanus, etc.)',
-    'Thermometers (digital, mercury)',
-    'Wheelchairs',
-    'Stretchers',
-    'Catheters (urinary, IV catheters)',
-    'IV Drip Sets'
-  ];
+  // Product types with related product names
+  const productData = {
+    'Medicines': ['Aspirin', 'Paracetamol', 'Ibuprofen'],
+    'Blood': ['A+', 'O-', 'B+', 'AB+'],
+    'Injections': ['Vaccine A', 'Insulin', 'Pain Relief Injection'],
+    'IV Fluids': ['Saline', 'Dextrose', 'Ringer\'s Lactate'],
+    'Syringes': ['1ml Syringe', '5ml Syringe', '10ml Syringe'],
+    'Needles': ['Hypodermic Needle', 'Butterfly Needle'],
+  };
+
+  const productTypes = Object.keys(productData);
 
   useEffect(() => {
     if (initialHospitalName && initialHospitalID) {
@@ -48,13 +39,29 @@ const HospitalInventoryForm = () => {
     }
   }, [initialHospitalName, initialHospitalID]);
 
+  const handleProductNameChange = (inputValue) => {
+    setProductName(inputValue);
+    if (productType && productData[productType]) {
+      const filtered = productData[productType].filter((name) =>
+        name.toLowerCase().includes(inputValue.toLowerCase())
+      );
+      setFilteredSuggestions(filtered);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setProductName(suggestion);
+    setFilteredSuggestions([]); // Hide suggestions after selection
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const inventoryData = {
       hospitalName,
       hospitalID: Number(hospitalID),
-      products: [
+      phoneNumber,
+      products: 
         {
           productType,
           productName,
@@ -62,11 +69,11 @@ const HospitalInventoryForm = () => {
           price: Number(price),
           expiryDate,
         },
-      ],
+      
     };
 
     try {
-      await axios.post('http://localhost:5000/hospital/addinventory', inventoryData);
+      await axios.post('http://localhost:5000/addInventory/inventory', inventoryData);
       Swal.fire({
         title: 'Success!',
         text: 'Data has been saved to the database.',
@@ -74,14 +81,15 @@ const HospitalInventoryForm = () => {
         confirmButtonText: 'OK'
       });
 
+      // Reset form
       setHospitalName('');
       setHospitalID('');
-       
       setProductType('');
       setProductName('');
       setProductQuantity('');
       setPrice('');
       setExpiryDate('');
+      setFilteredSuggestions([]); // Clear suggestions after form reset
     } catch (error) {
       Swal.fire({
         title: 'Error!',
@@ -93,11 +101,11 @@ const HospitalInventoryForm = () => {
   };
 
   return (
-    <div className="form-container">
+    <div className={styles.formContainer}>
       <h2>Hospital Inventory Form</h2>
-      <form onSubmit={handleSubmit} className="inventory-form">
-        
-        <div className="form-group">
+      <form onSubmit={handleSubmit} className={styles.inventoryForm}>
+
+        <div className={styles.formGroup}>
           <label>Hospital Name:</label>
           <input
             type="text"
@@ -109,7 +117,7 @@ const HospitalInventoryForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className={styles.formGroup}>
           <label>Hospital ID:</label>
           <input
             type="number"
@@ -121,13 +129,15 @@ const HospitalInventoryForm = () => {
           />
         </div>
 
-        
-
-        <div className="form-group">
+        <div className={styles.formGroup}>
           <label>Product Type:</label>
           <select 
             value={productType} 
-            onChange={(e) => setProductType(e.target.value)}
+            onChange={(e) => {
+              setProductType(e.target.value);
+              setProductName(''); // Clear product name when changing product type
+              setFilteredSuggestions([]); // Clear suggestions when type changes
+            }}
             required
           >
             <option value="">Select product type</option>
@@ -137,18 +147,32 @@ const HospitalInventoryForm = () => {
           </select>
         </div>
 
-        <div className="form-group">
+        <div className={styles.formGroup}>
           <label>Product Name:</label>
           <input
             type="text"
             value={productName}
-            onChange={(e) => setProductName(e.target.value)}
+            onChange={(e) => handleProductNameChange(e.target.value)}
             required
-            placeholder="Enter product name"
+            placeholder="Enter product name or select from suggestions"
           />
+          {/* Display suggestions if available */}
+          {filteredSuggestions.length > 0 && (
+            <ul className={styles.suggestionsList}>
+              {filteredSuggestions.map((suggestion, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                  className={styles.suggestionItem}
+                >
+                  {suggestion}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
-        <div className="form-group">
+        <div className={styles.formGroup}>
           <label>Product Quantity:</label>
           <input
             type="number"
@@ -159,7 +183,7 @@ const HospitalInventoryForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className={styles.formGroup}>
           <label>Price:</label>
           <input
             type="number"
@@ -170,7 +194,7 @@ const HospitalInventoryForm = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className={styles.formGroup}>
           <label>Expiry Date:</label>
           <input
             type="date"
@@ -180,7 +204,7 @@ const HospitalInventoryForm = () => {
           />
         </div>
 
-        <button type="submit" className="submit-button">Submit</button>
+        <button type="submit" className={styles.submitButton}>Submit</button>
       </form>
     </div>
   );

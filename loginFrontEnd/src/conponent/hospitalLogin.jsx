@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import '../CSS/hospitalLogin.css';
+import styles from '../CSS/hospitalLogin.module.css';
 
 const HospitalLogin = () => {
     const [hospitalID, setHospitalID] = useState('');
@@ -20,7 +20,6 @@ const HospitalLogin = () => {
             });
 
             if (response.data.success) {
-                // alert("sucessfull login to hospital")
                 navigate(`/dashboard?hospitalID=${hospitalID}&hospitalName=${response.data.hospitalName}`);
             } else {
                 setError('Hospital ID or Password is incorrect');
@@ -32,7 +31,6 @@ const HospitalLogin = () => {
                 });
             }
         } catch (error) {
-            //  setError('Error logging in. Please try again.');
             Swal.fire({
                 title: 'Error!',
                 text: 'Error logging in. Please try again.',
@@ -43,10 +41,10 @@ const HospitalLogin = () => {
     };
 
     return (
-        <div className="login-container">
+        <div className={styles.loginContainer}>
             <h2>Hospital Login</h2>
             <form onSubmit={handleLogin}>
-                <div className="form-group">
+                <div className={styles.formGroup}>
                     <label>Hospital ID</label>
                     <input
                         type="text"
@@ -56,7 +54,7 @@ const HospitalLogin = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className={styles.formGroup}>
                     <label>Password</label>
                     <input
                         type="password"
@@ -66,7 +64,7 @@ const HospitalLogin = () => {
                         required
                     />
                 </div>
-                {error && <p className="error">{error}</p>}
+                {error && <p className={styles.error}>{error}</p>}
                 <button type="submit">Login</button>
             </form>
         </div>

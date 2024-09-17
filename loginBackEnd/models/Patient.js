@@ -81,9 +81,10 @@ const patientSchema = new mongoose.Schema({
       description: {
         type: String
       },
-      medication: {
-        type: String
-      }
+      medication: [{ 
+        medicine: { type: String, required: true }, // Medication name
+        quantity: { type: Number, required: true } // Medication quantity/dosage
+      }]
     }
   ] // Array of embedded appointments
 });

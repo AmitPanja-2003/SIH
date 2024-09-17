@@ -68,6 +68,7 @@ if (!slot || !department || !hospital) {
 
     // Mark the slot as booked
     timeSlot.isBooked = true;
+    timeSlot.patientId=patient_detail.patientId;
     await timeSlot.save();
     let x = await Patient.updateOne({patientId:patient_detail.patientId},{$push:{patientAppointments:obj}})
     // console.log(x);
