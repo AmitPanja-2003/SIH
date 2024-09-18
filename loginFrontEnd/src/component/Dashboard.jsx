@@ -27,8 +27,8 @@ const Dashboard = () => {
                 <div className={styles.card} onClick={() => handleNavigation(`/inventory?hospitalName=${hospitalName}&hospitalID=${hospitalID}`)}>
                     Add Inventory
                 </div>
-                <div className={styles.card} onClick={() => handleNavigation('/opd-checkup')}>
-                    OPD Checkup
+                <div className={styles.card} onClick={() => handleNavigation('/patient-checkup')}>
+                    Patient Checkup
                 </div>
                 <div className={styles.card} onClick={() => handleNavigation(`/add-doctor?hospitalID=${hospitalID}`)}>
                     Add Doctor

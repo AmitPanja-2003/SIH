@@ -1,0 +1,121 @@
+/* Container for the search */
+.searchContainer {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    height: 100vh; /* Full height of the viewport */
+}
+
+/* Title */
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Search box container */
+.searchBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Input field for searching */
+.inputField {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border 0.3s ease;
+}
+
+/* Focus state for input */
+.inputFieldFocus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Error message styling */
+.errorMessage {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* No results message styling */
+.noResultsMessage {
+    color: orange;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* Results table container */
+.resultsTable {
+    margin-top: 20px;
+    width: 100%;
+    height: calc(100% - 100px); /* Adjust this value to keep space for other elements */
+    overflow-y: auto; /* Allow scrolling if needed */
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Table structure */
+.resultsTableTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table header */
+.tableHeader {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Table body */
+.tableData {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Highlighting every second row */
+.tableRowEven {
+    background-color: #f2f2f2;
+}
+
+/* Responsive design for mobile screens */
+@media (max-width: 768px) {
+    .inputField {
+        width: 60%;
+    }
+
+    .tableHeader,
+    .tableData {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* Small screen handling for buttons and layout */
+@media (max-width: 576px) {
+    .inputField {
+        width: 50%;
+    }
+
+    .searchBox {
+        flex-direction: column;
+}
+}

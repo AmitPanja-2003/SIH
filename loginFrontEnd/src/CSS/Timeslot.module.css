@@ -3,6 +3,7 @@
   max-width: 900px;
   margin: 0 auto;
   border: 1px solid #ddd;
+  background-color: #a8a8a8;
   border-radius: 8px;
   font-family: Arial, sans-serif;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
@@ -77,8 +78,8 @@ select:focus {
 
 .unbooked {
   background-color: #ddffdd;
-  border-color: #4caf50;
-  color: #4caf50;
+  border-color: #1a1b1a;
+  color: #090909;
 }
 
 .slotLabel {

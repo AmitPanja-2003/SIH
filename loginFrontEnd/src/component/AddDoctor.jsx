@@ -269,6 +269,8 @@ const AddDoctor = () => {
   };
 
   return (
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Search-Doctor</h1>
     <form className={styles.doctorForm} onSubmit={handleSubmit}>
       <input
         type="text"
@@ -336,6 +338,7 @@ const AddDoctor = () => {
       />
       <button type="submit" className={styles.submitButton}>Add Doctor</button>
     </form>
+    </div>
   );
 };
 

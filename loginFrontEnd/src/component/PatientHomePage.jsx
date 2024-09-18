@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../style/style.css'
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Chatbot from './Chatbot';
 
 const PatientHomePage = () => {
   const navigate = useNavigate();
@@ -12,7 +13,6 @@ const PatientHomePage = () => {
 
   return (
     <div className="home-container">
-      <h1>Home Page</h1>
 
       <nav className="navbar">
         <h1 className="logo">Hospital Management</h1>
@@ -38,6 +38,9 @@ const PatientHomePage = () => {
           <h3>Emergency</h3>
           <p>Contact emergency services or get immediate help.</p>
         </div>
+      </div>
+      <div className='chatbot-container'>
+        <Chatbot/>
       </div>
     </div>
   );
